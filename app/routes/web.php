@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::view('/', 'home')->name('home');
+Route::post('/payments', User\Payment\Actions\PaymentStoreAction::class)->name('payments.store');
