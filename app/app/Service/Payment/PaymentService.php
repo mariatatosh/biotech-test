@@ -36,21 +36,10 @@ final class PaymentService
     {
         $payment = Payment::find($dto->getId());
 
-        if ($payment->phone !== $dto->getPhone()) {
-            $payment->phone = $this->formatPhoneNumber($dto->getPhone());
-        }
-
-        if ($payment->name !== $dto->getName()) {
-            $payment->name = $dto->getName();
-        }
-
-        if ($payment->email !== $dto->getEmail()) {
-            $payment->email = $dto->getEmail();
-        }
-
-        if ($payment->amount !== $dto->getAmount()) {
-            $payment->amount = $dto->getAmount();
-        }
+        $payment->phone  = $this->formatPhoneNumber($dto->getPhone());
+        $payment->name   = $dto->getName();
+        $payment->email  = $dto->getEmail();
+        $payment->amount = $dto->getAmount();
 
         $payment->save();
     }
@@ -72,6 +61,6 @@ final class PaymentService
      */
     private function formatPhoneNumber(string $phoneNumber): string
     {
-        return substr(phone('7 (978)75-35-449', 'RU', PhoneNumberFormat::E164), 1);
+        return substr(phone($phoneNumber, 'RU', PhoneNumberFormat::E164), 1);
     }
 }
