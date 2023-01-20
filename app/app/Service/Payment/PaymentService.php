@@ -6,6 +6,7 @@ namespace App\Service\Payment;
 
 use App\Models\Payment;
 use App\Service\Payment\DTO\PaymentDTO;
+use libphonenumber\PhoneNumberFormat;
 
 final class PaymentService
 {
@@ -18,7 +19,7 @@ final class PaymentService
     {
         $payment = new Payment();
 
-        $payment->phone  = $dto->getPhone();
+        $payment->phone  = $this->formatPhoneNumber($dto->getPhone());
         $payment->name   = $dto->getName();
         $payment->email  = $dto->getEmail();
         $payment->amount = $dto->getAmount();
@@ -36,7 +37,7 @@ final class PaymentService
         $payment = Payment::find($dto->getId());
 
         if ($payment->phone !== $dto->getPhone()) {
-            $payment->phone = $dto->getPhone();
+            $payment->phone = $this->formatPhoneNumber($dto->getPhone());
         }
 
         if ($payment->name !== $dto->getName()) {
@@ -62,5 +63,15 @@ final class PaymentService
     public function destroy(int $id): void
     {
         Payment::destroy($id);
+    }
+
+    /***
+     * @param string $phoneNumber
+     *
+     * @return string
+     */
+    private function formatPhoneNumber(string $phoneNumber): string
+    {
+        return substr(phone('7 (978)75-35-449', 'RU', PhoneNumberFormat::E164), 1);
     }
 }

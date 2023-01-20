@@ -54,7 +54,7 @@ final class PaymentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone'  => 'required|numeric|min:11',
+            'phone'  => 'required|phone:RU,mobile',
             'name'   => 'max:30|nullable',
             'email'  => 'required|email',
             'amount' => 'required|numeric'
