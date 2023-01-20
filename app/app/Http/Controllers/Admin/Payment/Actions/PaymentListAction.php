@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 final class PaymentListAction extends Controller
 {
+    private const PER_PAGE = 20;
+
     /**
      * @param \Illuminate\Http\Request $request
      *
@@ -20,10 +22,11 @@ final class PaymentListAction extends Controller
         $searchQuery = $request->search;
 
         if (is_null($searchQuery)) {
-            $payments = Payment::all();
+            $payments = Payment::paginate(self::PER_PAGE);
         } else {
             $payments = Payment::where('email', 'LIKE', "%{$searchQuery}%")
-                ->orWhere('phone', 'LIKE', "%{$searchQuery}%")->get();
+                ->orWhere('phone', 'LIKE', "%{$searchQuery}%")->get()
+                ->paginate(self::PER_PAGE);
         }
 
         return view('admin.payment.list', [
