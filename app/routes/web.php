@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
 Route::view('/', 'home')->name('home');
 Route::post('/payment', User\Payment\Actions\PaymentStoreAction::class)->name('payment.store');
 
-Route::prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/payments', static function (): object {
         return view('admin.payment.list', ['payments' => Payment::all()]);
     })
