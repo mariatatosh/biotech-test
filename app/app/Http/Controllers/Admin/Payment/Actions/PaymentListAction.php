@@ -25,7 +25,7 @@ final class PaymentListAction extends Controller
             $payments = Payment::paginate(self::PER_PAGE);
         } else {
             $payments = Payment::where('email', 'LIKE', "%{$searchQuery}%")
-                ->orWhere('phone', 'LIKE', "%{$searchQuery}%")->get()
+                ->orWhere('phone', 'LIKE', "%{$searchQuery}%")
                 ->paginate(self::PER_PAGE);
         }
 
