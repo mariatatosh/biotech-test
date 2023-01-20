@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\User\Payment\Actions;
+namespace App\Http\Controllers\Admin\Payment\Actions;
 
+use App\Http\Controllers\Admin\Payment\Requests\PaymentUpdateRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\User\Payment\Requests\PaymentStoreRequest;
 use App\Service\Payment\DTO\PaymentDTO;
 use App\Service\Payment\PaymentService;
+use Illuminate\Http\RedirectResponse;
 
-final class PaymentStoreAction extends Controller
+final class PaymentUpdateAction extends Controller
 {
     /**
      * @param \App\Service\Payment\PaymentService $paymentService
@@ -19,15 +20,15 @@ final class PaymentStoreAction extends Controller
     }
 
     /**
-     * @param \app\Http\Controllers\User\Payment\Requests\PaymentStoreRequest $request
+     * @param \App\Http\Controllers\Admin\Payment\Requests\PaymentUpdateRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(PaymentStoreRequest $request)
+    public function __invoke(PaymentUpdateRequest $request): RedirectResponse
     {
-        $this->paymentService->store(
+        $this->paymentService->update(
             new PaymentDTO(
-                null,
+                (int) $request->route('id'),
                 $request->getPhone(),
                 $request->getName(),
                 $request->getEmail(),
@@ -35,9 +36,9 @@ final class PaymentStoreAction extends Controller
             )
         );
 
-        return back()->with('alert', [
+        return redirect()->route('admin.payments.list')->with('alert', [
             'type'    => 'success',
-            'message' => 'Payment created successfully',
+            'message' => 'Payment updated successfully',
         ]);
     }
 }

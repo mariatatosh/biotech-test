@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\User\Payment\Requests;
+namespace App\Http\Controllers\Admin\Payment\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class PaymentStoreRequest extends FormRequest
+final class PaymentUpdateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -45,7 +45,7 @@ final class PaymentStoreRequest extends FormRequest
      */
     public function getAmount(): float
     {
-        return (float) $this->get('amount');
+        return (float)$this->get('amount');
     }
 
     /**

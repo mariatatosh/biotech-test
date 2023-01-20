@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\User\Payment\Actions;
+namespace App\Http\Controllers\Admin\Payment\Actions;
 
+use App\Http\Controllers\Admin\Payment\Requests\PaymentStoreRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\User\Payment\Requests\PaymentStoreRequest;
 use App\Service\Payment\DTO\PaymentDTO;
 use App\Service\Payment\PaymentService;
+use Illuminate\Http\RedirectResponse;
 
 final class PaymentStoreAction extends Controller
 {
@@ -19,11 +20,11 @@ final class PaymentStoreAction extends Controller
     }
 
     /**
-     * @param \app\Http\Controllers\User\Payment\Requests\PaymentStoreRequest $request
+     * @param \App\Http\Controllers\Admin\Payment\Requests\PaymentStoreRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(PaymentStoreRequest $request)
+    public function __invoke(PaymentStoreRequest $request): RedirectResponse
     {
         $this->paymentService->store(
             new PaymentDTO(
