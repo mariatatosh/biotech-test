@@ -23,22 +23,25 @@ Auth::routes([
 Route::view('/', 'home')->name('home');
 Route::post('/payment', User\Payment\Actions\PaymentStoreAction::class)->name('payment.store');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'permission:view-payments'])->prefix('admin')->group(function () {
     Route::get('/payments', static function (): object {
         return view('admin.payment.list', ['payments' => Payment::all()]);
     })
         ->name('admin.payments.list');
 
     Route::delete('/payments/{id}', Admin\Payment\Actions\PaymentDestroyAction::class)
-        ->name('admin.payments.destroy');
+        ->name('admin.payments.destroy')
+        ->middleware('permission:destroy-payments');
 
     Route::get('/payments/{id}/edit', static function (int $id): object {
         return view('admin.payment.edit', ['payment' => Payment::find($id)]);
     })
-        ->name('admin.payments.edit');
+        ->name('admin.payments.edit')
+        ->middleware('permission:update-payments');
 
     Route::patch('/payments/{id}', Admin\Payment\Actions\PaymentUpdateAction::class)
-        ->name('admin.payments.update');
+        ->name('admin.payments.update')
+        ->middleware('permission:update-payments');
 
     Route::view('/payments/create', 'admin.payment.create')->name('admin.payments.create');
 

@@ -45,4 +45,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canManagePayments(): bool
+    {
+        return in_array(
+            $this->role,
+            [
+                self::ROLE_ADMIN,
+                self::ROLE_MANAGER,
+            ], true
+        );
+    }
 }

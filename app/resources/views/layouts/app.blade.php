@@ -49,7 +49,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a  class="dropdown-item" href="{{ route('admin.payments.list') }}">Payments</a>
+                                    @if(Auth::user()->canManagePayments())
+                                        <a  class="dropdown-item" href="{{ route('admin.payments.list') }}">
+                                            {{ __('Payments') }}
+                                        </a>
+                                    @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

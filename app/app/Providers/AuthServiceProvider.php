@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('update-payments', static fn (User $user): bool => $user->canManagePayments());
+        Gate::define('view-payments', static fn (User $user): bool => $user->canManagePayments());
+        Gate::define('destroy-payments', static fn (User $user): bool => $user->isAdmin());
     }
 }
