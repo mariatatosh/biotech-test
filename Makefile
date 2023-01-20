@@ -3,6 +3,7 @@ down: docker-down
 stop: docker-stop
 rebuild: docker-down docker-pull docker-build docker-up
 restart: docker-down docker-up
+app-init: migrations-run
 
 docker-up:
 	docker compose up -d
@@ -18,3 +19,6 @@ docker-build:
 
 docker-pull:
 	docker compose pull
+
+migrations-run:
+	docker compose run --rm php-cli php artisan migrate
