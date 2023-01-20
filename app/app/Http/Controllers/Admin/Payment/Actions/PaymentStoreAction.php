@@ -36,7 +36,7 @@ final class PaymentStoreAction extends Controller
             )
         );
 
-        return back()->with('alert', [
+        return redirect()->route('admin.payments.list')->with('alert', [
             'type'    => 'success',
             'message' => 'Payment created successfully',
         ]);
