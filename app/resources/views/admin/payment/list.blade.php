@@ -2,9 +2,20 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ route('admin.payments.create') }}" class="btn btn-success mb-4">
+        <a href="{{ route('admin.payments.create') }}" class="btn btn-success">
             {{ __('Create Payment') }}
         </a>
+
+        <form method="GET" action="{{ route('admin.payments.list') }}" class="d-flex my-4">
+            <input
+                class="form-control mx-1"
+                type="search"
+                placeholder="Search"
+                name="search"
+                value="{{ $searchQuery ?? '' }}"
+            >
+            <button class="btn btn-outline-success mx-1" type="submit">{{ __('Search') }}</button>
+        </form>
 
         <table class="table">
             <thead class="thead-light">

@@ -24,9 +24,7 @@ Route::view('/', 'home')->name('home');
 Route::post('/payment', User\Payment\Actions\PaymentStoreAction::class)->name('payment.store');
 
 Route::middleware(['auth', 'permission:view-payments'])->prefix('admin')->group(function () {
-    Route::get('/payments', static function (): object {
-        return view('admin.payment.list', ['payments' => Payment::all()]);
-    })
+    Route::get('/payments', Admin\Payment\Actions\PaymentListAction::class)
         ->name('admin.payments.list');
 
     Route::delete('/payments/{id}', Admin\Payment\Actions\PaymentDestroyAction::class)
