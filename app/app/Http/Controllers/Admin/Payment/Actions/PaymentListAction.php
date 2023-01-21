@@ -22,11 +22,14 @@ final class PaymentListAction extends Controller
         $searchQuery = $request->search;
 
         if (is_null($searchQuery)) {
-            $payments = Payment::select('id', 'phone', 'name', 'email', 'amount')->paginate(self::PER_PAGE);
+            $payments = Payment::select('id', 'phone', 'name', 'email', 'amount')
+                ->orderByDesc('id')
+                ->paginate(self::PER_PAGE);
         } else {
             $payments = Payment::select('id', 'phone', 'name', 'email', 'amount')
                 ->where('email', 'LIKE', "%{$searchQuery}%")
                 ->orWhere('phone', 'LIKE', "%{$searchQuery}%")
+                ->orderByDesc('id')
                 ->paginate(self::PER_PAGE);
         }
 
