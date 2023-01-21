@@ -4,7 +4,7 @@ down: docker-down
 stop: docker-stop
 restart: docker-down docker-up
 dependencies-install: composer-install npm-install
-app-init: copy-env laravel-generate-keys
+app-init: copy-env laravel-generate-keys give-permissions
 
 docker-up:
 	docker compose up -d
@@ -26,6 +26,9 @@ copy-env:
 
 laravel-generate-keys:
 	docker compose run --rm php-cli php artisan key:generate
+
+give-permissions:
+	docker compose run --rm php-cli chmod 777 ./storage -R
 
 composer-install:
 	docker compose run --rm php-cli composer i
