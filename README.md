@@ -32,10 +32,19 @@ You can now access the server at http://localhost:8080
 
     git clone git@github.com:mariatatosh/biotech-test.git && cd biotech-test
     make dependencies-install
-    make copy-env
     make init
     make migrations-run
     make seeders-run
+
+----------
+
+## Default Users
+
+| **Role** 	   | **Email**              	 | **Password**            	 |
+|--------------|--------------------------|---------------------------|
+| User      	  | user@gmail.com     	     | password 	                |
+| Admin      	 | admin@gmail.com 	        | password   	              |
+| Manager 	    | manager@gmail.com    	   | password      	           |
 
 ----------
 
@@ -60,15 +69,6 @@ You can now access the server at http://localhost:8080
 | `/admin/payments/{id}` 	        | PATCH    	                | Update payment action      	                   |
 | `/admin/payments/{id}` 	        | DELETE    	               | Destroy payment action (Only for Admin)      	 |
 
-----------
-
-## Default Users
-
-| **Role** 	   | **Email**              	 | **Password**            	 |
-|--------------|--------------------------|---------------------------|
-| User      	  | user@gmail.com     	     | password 	                |
-| Admin      	 | admin@gmail.com 	        | password   	              |
-| Manager 	    | manager@gmail.com    	   | password      	           |
 
 ----------
 
@@ -86,7 +86,6 @@ You can now access the server at http://localhost:8080
 - `restart` - Restart local development server
 - `down` - Down all docker containers
 - `stop` - Stop all docker containers
-- `copy-env` - Copy the example env file
 - `dependencies-install` - Install dependencies
 - `migrations-run` - Running migrations
 - `seeders-run` - Running all seeders
