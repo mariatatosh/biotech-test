@@ -12,22 +12,19 @@ Install all the dependencies using composer and npm
 
     make dependencies-install
 
-Copy the example env file and make the required configuration changes in the .env file
-
-    make copy-env
-
-Run the database migrations and seeders
-
-    make migrations-run
-    make seeders-run
-
-Start the local development server
+Start the local development server in first time
 
     make init
 
-Start the local development server
+(**Make the required configuration changes in the .env file before**)
 
-    make up
+Run the database migrations
+
+    make migrations-run
+
+Run the database seeders
+
+    make seeders-run
 
 You can now access the server at http://localhost:8080
 
@@ -36,9 +33,9 @@ You can now access the server at http://localhost:8080
     git clone git@github.com:mariatatosh/biotech-test.git && cd biotech-test
     make dependencies-install
     make copy-env
+    make init
     make migrations-run
     make seeders-run
-    make init
 
 ----------
 
