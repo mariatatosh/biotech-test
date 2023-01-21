@@ -8,13 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class PaymentStoreRequest extends FormRequest
 {
-    /**
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
+    protected $stopOnFirstFailure = true;
 
     /**
      * @return string
@@ -45,7 +39,7 @@ final class PaymentStoreRequest extends FormRequest
      */
     public function getAmount(): float
     {
-        return (float) $this->get('amount');
+        return (float)$this->get('amount');
     }
 
     /**

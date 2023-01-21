@@ -8,13 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class PaymentUpdateRequest extends FormRequest
 {
-    /**
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
+    protected $stopOnFirstFailure = true;
 
     /**
      * @return string
