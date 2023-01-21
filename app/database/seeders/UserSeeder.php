@@ -11,8 +11,16 @@ final class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create();
-        User::factory()->create(['role' => User::ROLE_ADMIN]);
-        User::factory()->create(['role' => User::ROLE_MANAGER]);
+        User::factory()->create([
+            'email' => 'user@gmail.com'
+        ]);
+        User::factory()->create([
+            'role'  => User::ROLE_ADMIN,
+            'email' => 'admin@gmail.com',
+        ]);
+        User::factory()->create([
+            'role'  => User::ROLE_MANAGER,
+            'email' => 'manager@gmail.com',
+        ]);
     }
 }
