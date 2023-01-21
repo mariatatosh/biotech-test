@@ -1,9 +1,9 @@
+init: docker-down docker-pull docker-build docker-up
 up:	docker-up
 down: docker-down
 stop: docker-stop
-rebuild: docker-down docker-pull docker-build docker-up
 restart: docker-down docker-up
-app-init: migrations-run seeders-run
+dependencies-install: composer-install npm-install
 
 docker-up:
 	docker compose up -d
@@ -19,6 +19,15 @@ docker-build:
 
 docker-pull:
 	docker compose pull
+
+copy-env:
+	docker compose run --rm php-cli cp .env.example .env
+
+composer-install:
+	docker compose run --rm php-cli composer i
+
+npm-install:
+	docker compose run --rm node-cli npm i
 
 migrations-run:
 	docker compose run --rm php-cli php artisan migrate
